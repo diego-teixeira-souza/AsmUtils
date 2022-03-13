@@ -1,6 +1,6 @@
 ; ----------------------------------------------------------------------------------------------------
 ; file: helloworldGUI.asm
-; description: A simple program in 32 bits that display in GUI an Hello World!
+; description: A simple program written in 32 bits that display in GUI an Hello World!
 ; ----------------------------------------------------------------------------------------------------
 
 %define NULL 0
