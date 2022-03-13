@@ -15,7 +15,7 @@ section .info									; Linker section
 section .text									; Code section
 	_main:										; Start of Main Program
 	
-		.prompt:
+		.prompt:								; Display an prompt with Win32API
 		push	DWORD MB_OK						; UINT uType
 		push	DWORD tit						; LPCSTR lpCaption
 		push 	DWORD msg						; LPCSTR lpText
