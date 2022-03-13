@@ -22,7 +22,7 @@ section .text									; Code section
 		push	DWORD NULL						; HWND hWnd
 		call 	_MessageBoxA@16					; Display an prompt GUI
 		
-		.done:
+		.done:									; Return control to the system
 		push	dword EXIT_CODE					; UINT uExitCode
 		call	_ExitProcess@4					; Windows Exit Process Function
 		
