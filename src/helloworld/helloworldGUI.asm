@@ -14,12 +14,14 @@ section .info									; Linker section
 
 section .text									; Code section
 	_main:										; Start of Main Program
+	
 		.prompt:
 		push	DWORD MB_OK						; UINT uType
 		push	DWORD tit						; LPCSTR lpCaption
 		push 	DWORD msg						; LPCSTR lpText
 		push	DWORD NULL						; HWND hWnd
 		call 	_MessageBoxA@16					; Display an prompt GUI
+		
 		.done:
 		push	dword EXIT_CODE					; UINT uExitCode
 		call	_ExitProcess@4					; Windows Exit Process Function
