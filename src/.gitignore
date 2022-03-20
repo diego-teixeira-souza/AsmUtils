@@ -1,2 +1,6 @@
 *
 !.gitignore
+!asmutils.h
+!asmutils.mac
+!asmutils.asm
+!factorial

@@ -1,0 +1,54 @@
+%ifndef ASMUTILS_MAC
+%define ASMUTILS_MAC
+
+; Available os in this library
+%define OS_WINDOWS 1
+%define OS_LINUX 2
+
+; Available bits suport in this library
+%define BITS_32 1
+%define BITS_64 2
+
+; Define tha target OS and bits
+%ifdef  __?OUTPUT_FORMAT?__ 
+   %ifidn __?OUTPUT_FORMAT?__, win32
+        %define ASM_UTILS_OS    OS_WINDOWS
+        %define ASM_UTILS_BITS  BITS_32
+    %elifidn __?OUTPUT_FORMAT?__, win64
+        %define ASM_UTILS_OS    OS_WINDOWS
+        %define ASM_UTILS_BITS  BITS_64
+    %elifidn __?OUTPUT_FORMAT?__, elf32
+        %define ASM_UTILS_OS     OS_LINUX
+        %define ASM_UTILS_BITS   BITS_32
+    %elifidn __?OUTPUT_FORMAT?__, elf64
+        %define ASM_UTILS_OS     OS_LINUX
+        %define ASM_UTILS_BITS   BITS_64
+    %else
+        %error "Output format invalid!"
+    %endif
+%else
+    %error "output format not defined!"
+%endif
+
+%if ASM_UTILS_BITS = BITS_32
+    %define ASM_UTILS_DEF_GLOBAL_FUNCTION(func_name) global _ %+ func_name
+    %define ASM_UTILS_FUNCTION(func_name) _ %+ func_name
+
+    %macro prologue 1
+        push ebp
+        mov ebp, esp
+        %if %1 <> 0
+            sub esp, %1
+        %endif
+    %endmacro
+
+    %macro epilogue 1
+        mov esp, ebp
+        pop ebp
+    %endmacro
+%else
+    %define ASM_UTILS_DEF_GLOBAL_FUNCTION(func_name) global %+ func_name
+    %define ASM_UTILS_FUNCTION(func_name) func_name
+%endif
+
+%endif
