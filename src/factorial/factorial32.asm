@@ -13,26 +13,26 @@ section .text
 ASM_UTILS_FUNCTION(factorial):
     
 ; function entry
-    prologue 0
+    prologue 0					; initial standard function setup
 
 ; initial value
-    mov     eax, 1                          ; Set eax = 1, initial value for factorial calc
+    mov     eax, 1                          	; Set eax = 1, initial value for factorial calc
 
 ; Test the parameter
-    cmp     DWORD [ebp + 8], 2              ; if (parm < 2) return 1        
+    cmp     DWORD [ebp + 8], 2              	; if (parm < 2) return 1        
     jl      .done
 
 ; Calculate the factorial
-    push    ecx                             ; Save ecx current value
-    mov     ecx, DWORD [ebp + 8]            ; Set ecx = parm
+    push    ecx                             	; Save ecx current value
+    mov     ecx, DWORD [ebp + 8]            	; Set ecx = parm
 .loop:
-    mul     ecx                             ; Set eax *= ecx
-    loop    .loop                           ; Decrement ecx, then If ecx == 0 exit loop, else continue the multiplication
-    pop     ecx                             ; Restore ecx previus value
+    mul     ecx                             	; Set eax *= ecx
+    loop    .loop                           	; Decrement ecx, then If ecx == 0 exit loop, else continue the multiplication
+    pop     ecx                             	; Restore ecx previus value
 
 ; function return
 .done:
     epilogue 0
-    ret                                     ; Return the value in EAX
+    ret                                     	; Return the value in EAX
 
 ; compile: nasm -fwin32 factorial32.asm -ofactorial32.obj
